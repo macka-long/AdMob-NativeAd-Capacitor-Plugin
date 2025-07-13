@@ -7,9 +7,13 @@ import GoogleMobileAds
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(NativeAdPluginPlugin)
-public class NativeAdPluginPlugin: CAPPlugin {
+public class NativeAdPluginPlugin: CAPPlugin , CAPBridgedPlugin{
     public let identifier = "NativeAdPluginPlugin"
     public let jsName = "NativeAdPlugin"
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "loadNativeAd", returnType: CAPPluginReturnPromise)
+    ]
+
     private let implementation = NativeAdPlugin()
 
     var adLoader: GADAdLoader?
