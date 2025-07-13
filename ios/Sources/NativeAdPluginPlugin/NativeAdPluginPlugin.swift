@@ -7,7 +7,7 @@ import GoogleMobileAds
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(NativeAdPluginPlugin)
-public class NativeAdPluginPlugin: CAPPlugin, CAPBridgedPlugin {
+public class NativeAdPluginPlugin: CAPPlugin {
     public let identifier = "NativeAdPluginPlugin"
     public let jsName = "NativeAdPlugin"
     private let implementation = NativeAdPlugin()
@@ -38,7 +38,7 @@ public class NativeAdPluginPlugin: CAPPlugin, CAPBridgedPlugin {
 
 // MARK: - Delegate 実装
 extension NativeAdPluginPlugin: GADNativeAdLoaderDelegate {
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
+    public func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
         self.nativeAd = nativeAd
 
         // 広告情報を必要に応じて抽出してJSに送信
@@ -51,7 +51,7 @@ extension NativeAdPluginPlugin: GADNativeAdLoaderDelegate {
         notifyListeners("nativeAdLoaded", data: adData)
     }
 
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+    public func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
         notifyListeners("nativeAdFailed", data: ["error": error.localizedDescription])
     }
 }
